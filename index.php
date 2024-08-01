@@ -1,3 +1,9 @@
+<?php
+
+  $json = file_get_contents("data.json");           
+  $data=json_decode($json,true); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,15 +19,37 @@
 
 <body class="bg-dark">
   <div class="container">
+
     <div class="mt-4 mb-5 d-flex justify-content-between align-items-center">
+
       <h1 class="text-white">Get your Pokemon!</h1>
+
       <div>
-        <button class="btn btn-primary">
+        <button class="btn btn-outline-primary">
+        <i class="fa fa-gamepad" aria-hidden="true"></i> game </button>
+      </div>
+
+      <div>
+        <button class="btn btn-outline-primary" >
+          <i class="fa fa-search" aria-hidden="true"></i> search </button>
+      </div>
+
+      <div>
+        <button class="btn btn-outline-primary">
+        <i class="fa fa-share-square" aria-hidden="true"></i> share </button>
+      </div>
+
+      <div>
+        <button class="btn btn-outline-primary">
           <i class="fa fa-sign-in"></i> Login</button>
       </div>
+
+     
     </div>
+
     <table class="table table-dark">
       <thead>
+        
         <tr>
           <th scope="col">Image</th>
           <th scope="col">Name</th>
@@ -31,10 +59,23 @@
           <th scope="col">Height</th>
           <th scope="col">Action</th>
         </tr>
+
       </thead>
+
       <tbody>
 
-        <!-- Write your code here -->
+        <?php foreach($data as $element):?>
+          <tr>
+            <td><img src="<?php echo $element ["image"]["thumbnail"];?>"></td>
+            <td><?php echo $element ["name"]["english"];?></td>
+            <td><?php echo strtoupper($element ["species"]);?></td>         
+            <td><?php echo $element ["description"];?></td>
+            <td><?php echo $element ["profile"]["weight"];?></td>
+            <td><?php echo $element ["profile"]["height"];?></td>
+            <td><button class="btn btn-danger"><i class="fa fa-gift" aria-hidden="true"></i></button></td>
+          </tr> 
+        <?php endforeach;?>
+        
       </tbody>
     </table>
 
